@@ -17,7 +17,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.kolatech.smartcalc"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     // ndkVersion = flutter.ndkVersion  // Commented out due to corrupted NDK installation
 
     compileOptions {

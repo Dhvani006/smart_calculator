@@ -217,7 +217,7 @@ Calculated using Smart Calc
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('GST (${_gstRate.toStringAsFixed(0)}%)', style: AppTextStyles.labelSmall),
+                      Text('GST Amount (${_gstRate.toStringAsFixed(0)}%)', style: AppTextStyles.labelSmall),
                       Text(
                         _result != null ? GSTCalculator.formatCurrency(_result!['gstAmount']!) : '₹0.00',
                         style: AppTextStyles.bodyMedium.copyWith(color: AppColors.accentGreen, fontWeight: FontWeight.bold),
@@ -227,7 +227,7 @@ Calculated using Smart Calc
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(_isAddMode ? 'NET AMOUNT' : 'TOTAL (incl. GST)', style: AppTextStyles.labelSmall),
+                      Text('INPUT AMOUNT', style: AppTextStyles.labelSmall),
                       Text(
                         _calc.display,
                         style: AppTextStyles.heading4.copyWith(color: AppColors.textSecondary),
@@ -239,13 +239,24 @@ Calculated using Smart Calc
               const Divider(color: Colors.white10),
               FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(
-                  _result != null ? GSTCalculator.formatCurrency(_result!['totalAmount']!) : '₹0.00',
-                  style: AppTextStyles.displayMedium.copyWith(
-                    color: AppColors.accentGreen,
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      _isAddMode ? 'TOTAL AMOUNT' : 'NET AMOUNT',
+                      style: AppTextStyles.labelSmall.copyWith(color: AppColors.textMuted),
+                    ),
+                    Text(
+                      _result != null 
+                          ? GSTCalculator.formatCurrency(_isAddMode ? _result!['totalAmount']! : _result!['baseAmount']!) 
+                          : '₹0.00',
+                      style: AppTextStyles.displayMedium.copyWith(
+                        color: AppColors.accentGreen,
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               if (_result != null) ...[
